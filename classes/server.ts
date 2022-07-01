@@ -2,6 +2,8 @@ import express from 'express';
 import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io';
 import http from 'http';
+import * as socket from '../sockets/sockets'
+import { StrictEventEmitter } from 'socket.io/dist/typed-events';
 
 export  default class Server
 {
@@ -29,11 +31,21 @@ export  default class Server
 
     private escucharSockets(){
         this.io.on('connection', (cliente) =>{
-            console.log('Cliente conectado');
-        });
+            console.log('Cliente Conectado');
+
+            //Mensajes
+            socket.mensaje(cliente);
+
+           //Desconectar
+            socket.desconectar(cliente);
+       });
+
+       
+
+        
     }
 
     start(callback: Function){
         this.httpServer.listen(this.port, callback());
     }
-} 
+}   
