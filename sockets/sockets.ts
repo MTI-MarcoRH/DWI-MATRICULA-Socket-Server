@@ -14,4 +14,18 @@ export const mensaje= (cliente:Socket, io: socketIO.Server)=>
 
         io.emit('mensaje-nuevo', payload);
     })
+
+    
+}
+
+
+/* Configurando al usuario que se esta logeando */
+export const configurarUsuario= (cliente:Socket, io: socketIO.Server)=>
+{
+    cliente.on('configurar-usuario', (payload:{ nombre:string }) => {
+        console.log('Bienvenido usuario.', payload.nombre);
+
+    })
+
+    
 }
